@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>ChatRoom</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../css/chat-box-style.css">
+</head>
+
+<body>
+  <% if(message) { %>
+    <br />
+    <h2>
+      <center>
+        <%= message %>
+      </center>
+    </h2>
+    <a href="/">
+      <center>Return to the Login Page</center>
+    </a>
+    <% }else { %>
+      <div id="intro">
+        <h1>ChatRoom</h1>
+      </div>
+
+      <ul id="messages">
+        <% for(var i=0; i < messageArray.length; i++) { %>
+          <li id="list">
+            <%= messageArray[i].username %>
+              :
+              <%= messageArray[i].text %>
+          </li>
+          <% } %>
+      </ul>
+
+      <form action="">
+        <input id="m" placeholder="Enter your message..." autocomplete="off" required /><button>Send</button>
+      </form>
+
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/3.1.1/socket.io.js"></script>
+      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+      <script>
+        var socket = io('http://localhost:3000');
+        var userName = '<%= userName %>' ? '<%= userName %>' : '';
+        socket.emit('joining msg', userName);
+
+        $('form').submit(function (e) {
+          e.preventDefault();
+          socket.emit('chat message', (userName + ':  ' + $('#m').val()));
+          $('#messages').append($('<li id="list">').text(userName + ':  ' + $('#m').val()));
+          $('#m').val('');
+          return false;
+        });
+        socket.on('chat message', function (msg) {
+          $('#messages').append($('<li>').text(msg));
+        });
+        socket.on('disconnect', () => {
+          socket.emit('disconnect', userName);
+        });
+
+      </script>
+      <% } %>
+
+</body>
+
+</html>

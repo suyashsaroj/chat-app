@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>LOGIN PAGE</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <script type="text/javascript" src="../js/index.js"></script>
+</head>
+
+<body>
+
+  <h2>
+    <center>Welcome to Chat Application</center>
+  </h2>
+
+  <form class="modal-content animate" action="/login" method="post">
+    <div class="imgcontainer">
+      <img src="https://cdn-icons-png.flaticon.com/512/295/295128.png" style="object-fit:contain;
+      alt:Avatar; width:30%; height: 200px" ;>
+    </div>
+
+    <div class="container">
+      <label for="email"><b>Email</b></label>
+      <input type="text" placeholder="Enter Email" name="email" required>
+
+      <label for="psw"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="psw" required>
+
+      <button type="submit">Login</button>
+    </div>
+    <a href="/signup">
+      <center>
+        New to the Portal? Please signup to login
+      </center>
+    </a>
+  </form>
+</body>
+
+</html>
